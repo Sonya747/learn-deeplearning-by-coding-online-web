@@ -1,6 +1,7 @@
 import streamlit as st
+from streamlit_multipage import MultiPage
 
-def page_home():
+def page_home(st,**state):
     st.title("Home")
 
     st.header("介绍")
@@ -12,4 +13,4 @@ def page_home():
     接下来让我们开始吧！
     
     ''')
-    #st.page_link(r"pages/NN.py",label="第一章 神经网络")
+    #st.page_link(r"frontpages/NN.py",label="第一章 神经网络")

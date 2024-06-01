@@ -1,14 +1,12 @@
 import os
 import sys
 projectpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-curPath = os.path.abspath(os.path.dirname(__file__))
 if projectpath not in sys.path:
     sys.path.append(projectpath)
 
-import streamlit as st
 from database import database,methods
-
-def login_page():
+from streamlit_multipage import MultiPage
+def login_page(st,**state):
     # Streamlit界面
     st.title("用户登录和注册")
 
@@ -46,4 +44,3 @@ def login_page():
                 return "home"
             except Exception as e:
                 raise e
-

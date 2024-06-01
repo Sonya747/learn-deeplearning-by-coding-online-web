@@ -1,7 +1,6 @@
-import streamlit as st
 from questions_json import codeblock
-
-def page_NN():
+from streamlit_multipage import MultiPage
+def page2(st,**state):
     st.header("2. Hidden Layer")
 
     st.markdown(r"""首先我们来学习input层和hidden层连接的几个参数：
@@ -34,7 +33,7 @@ def page_NN():
 
     codeblock.set_codeblock("2")
 
-    st.diverder()
+    st.divider()
 
     st.subheader("前向算法")
 
@@ -52,8 +51,5 @@ def page_NN():
     这就用到反向传播的算法调整了
     
     确定初始参数 ->得到输出 -> 计算损失 -> 反向调整参数 -> 重复迭代''')
-
-    if st.button("下一页"):
-        return "page3"
 
 

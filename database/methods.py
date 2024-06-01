@@ -143,7 +143,7 @@ def login_user(user_id: int, password: str) -> User :
     """
     with Session(engine) as session :
         try:
-            user = session.query(User).filter(User.id == user_id)
+            user = session.query(User).filter(user_id == User.id).first()
             if user and user.password == password :
                 return user
             else :
