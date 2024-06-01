@@ -1,25 +1,31 @@
-import sys
-import os
 import streamlit as st
-import login
+from streamlit_multipage import MultiPage
+from frontpages import pages
+import frontpages
 
-projectpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-curPath = os.path.abspath(os.path.dirname(__file__))
-if projectpath not in sys.path:
-    sys.path.append(projectpath)
-imagepath = projectpath + r'/images/'
 
-from pages import home,CNN,NN
+def sidebar(st):
+    pass
 
-if __name__ == '__main__':
-    while(True):
-        if 'page' not in st.session_state:
-            st.session_state['page'] = 'login'
-        if st.session_state['page'] == 'home':
-            st.session_state['page'] = home.page_home()
-        elif st.session_state['page'] == 'login':
-            st.session_state['page'] = login.login_page()
-        elif st.session_state['page' ]== 'page1':
-            st.session_state['page'] = CNN.page1()
-        elif st.session_state['page'] == 'page2':
-            st.session_state['page'] = NN.page_NN()
+
+
+app = MultiPage()
+app.st = st
+app.start_button = "进入网站"
+app.navbar_name = "导航栏"
+app.next_page_button = "Next Chapter"
+app.previous_page_button = "Previous Chapter"
+app.reset_button = "Delete Cache"
+app.navbar_style = "VerticalButton"
+
+app.navbar_extra = sidebar
+
+app.hide_menu = True
+app.hide_navigation = True
+
+app.add_app("landing",frontpages.landing,initial_page=True)
+
+for app_name,app_function in pages.items():
+    app.add_app(app_name,app_function)
+
+app.run()
