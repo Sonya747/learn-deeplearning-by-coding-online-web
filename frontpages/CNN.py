@@ -1,15 +1,15 @@
 import streamlit as st
-from questions_json import codeblock
 from streamlit_multipage import MultiPage
 import sys
-import os 
+import os
+
 projectpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 curPath = os.path.abspath(os.path.dirname(__file__))
 if projectpath not in sys.path:
     sys.path.append(projectpath)
-
-imagepath = projectpath + r'/images/'
-
+import globals_
+from questions_json import codeblock
+from globals_ import ImagePath
 
 def page1(st=st,**state):
     st.title("神经网络")
@@ -20,7 +20,7 @@ def page1(st=st,**state):
                 
                 """)
 
-    st.image( imagepath + r"BP.png",caption="经典的BP神经网络结构")
+    st.image(ImagePath + r"BP.png", caption="经典的BP神经网络结构")
 
     st.markdown("""
     值得注意的是，在学习原理的阶段，我们不会用到任何的现有框架(pyplot,tensorflow,keras等)，而是基于 **numpy** 库，用矩阵进行运算
@@ -37,10 +37,10 @@ def page1(st=st,**state):
         
     """)
 
-    st.image(imagepath+r"BP.png",caption="去均值与归一化效果图")
-    st.image(imagepath+r"meanquit.png",caption="去相关和白化效果图")
+    st.image(ImagePath + r"BP.png", caption="去均值与归一化效果图")
+    st.image(ImagePath + r"meanquit.png", caption="去相关和白化效果图")
     st.divider()
-    codeblock.set_codeblock("1")
+    codeblock.set_codeblock(globals_.user_id,1,10)
     st.divider()
 
 

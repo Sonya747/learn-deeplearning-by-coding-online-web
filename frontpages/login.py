@@ -3,8 +3,8 @@ import sys
 projectpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if projectpath not in sys.path:
     sys.path.append(projectpath)
-
-from database import database,methods
+import globals_
+from database_ import database,methods
 from streamlit_multipage import MultiPage
 def login_page(st,**state):
     # Streamlit界面
@@ -15,7 +15,7 @@ def login_page(st,**state):
 
     if choice == "注册":
         st.subheader("注册新用户")
-
+        stu_id = globals_.user_id
         stu_id = st.text_input("学号")
         stu_name = st.text_input("姓名")
         stu_class = st.text_input("课程号")
@@ -26,13 +26,14 @@ def login_page(st,**state):
                 try:
                     #methods.register_student(id=int(stu_id),name=user_name,class_id=int(stu_class),grade=0)
                     methods.register_user(user_id=int(stu_id), username=user_name, password=user_password,class_id=stu_class)
-                    st.success("注册成功！")
+                    st.success("注册成功！请登录")
+                    globals_.user_id=int(stu_id)
+                    globals_.user_identity="student"
                     return "home"
                 except Exception as e:
                     st.error(f"{str(e)}\n 请检查表单信息或联系工作人员")
             else:
                 st.error("请填写用户名和密码")
-
     elif choice == "登录":
         st.subheader("用户登录")
         user_id = st.text_input("学号")
@@ -41,6 +42,9 @@ def login_page(st,**state):
             try:
                 methods.login_user(int(user_id),password,)
                 st.success("欢迎登入")
+                globals_.login_=True
+                globals_.user_id = int(user_id)
+                globals_.user_identity="student"
                 return "home"
             except Exception as e:
                 raise e

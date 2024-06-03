@@ -14,6 +14,7 @@ curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
 json_file = rootPath + "\\questions_json\\questions.json"
+
 def execute_code(code):
     try:
         # 创建一个临时文件
@@ -55,6 +56,7 @@ def load_code(json_file, question):
             questions = json.load(file)
             code=questions[question]['answer']
     except FileNotFoundError:
+        print("filenotfound")
         code = ""
     return code
 
@@ -97,38 +99,9 @@ def add_question(json_file,question:str,contents:str,pretext:str,answer:str,outp
 
 
 
+
+
 if __name__ == "__main__":
-    content = '''
-    定义三个激活函数
-    '''
-    pretext = '''
-    import numpy as np
-def ReLU(Z:np.ndarray) -> np.ndarray:
-    #max(0,z)
-
-def softmax(Z : np.ndarray) -> np.ndarray:
-    #softmax
-
-
-def ReLU_deriv(Z:np.ndarray) -> np.ndarray:
-    """返回0或1"""
-    '''
-    answer = '''
-    import numpy as np
-#定义激活函数
-def ReLU(Z:np.ndarray) -> np.ndarray:
-    ## 如果是一维，可以用max？
-    return np.maximum(0,Z)
-
-
-def softmax(Z : np.ndarray) -> np.ndarray:
-    A = np.exp(Z) / sum(np.exp(Z))
-    return A
-
-
-def ReLU_deriv(Z:np.ndarray) -> np.ndarray:
-    """返回0或1"""
-    return Z>0'''
-    add_question(json_file,"2",content,pretext,answer,None)
-    code,stderr=execute_code(load_code(json_file, "2"))
-    update_output(json_file,"2",code)
+    with open(json_file, 'r',encoding='utf-8') as f :
+        datas = json.load(f)
+    print(datas)
